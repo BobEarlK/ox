@@ -1,0 +1,186 @@
+.rounder-name-class {
+    font-size: 1.6em;
+}
+
+.rounder-supplemental-text {
+    font-size: 0.9em;
+    padding: 2px;
+    font-weight: 300;
+    margin-left: 10px;
+    color: white;
+}
+
+.custom-max-total-census, .custom-max-CCU-census, .custom-max-COVID-census, .am-triage, .pm-triage {
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 1px;
+    margin-right: 1px;
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 3px;
+
+}
+
+.census-input {
+    col-2;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 1.1rem;
+}
+
+.census-input::placeholder {
+    color: rgba(119, 136, 153, 0.45);
+}
+
+
+.custom-max-total-census, .custom-max-CCU-census, .custom-max-COVID-census {
+    color: white;
+    opacity: .6;
+    font-size: .7rem;
+    vertical-align: sub;
+}
+
+.custom-max-COVID-census {
+    background-color: #f8d166;
+}
+
+.custom-max-total-census {
+    background-color: #35385d;;
+}
+
+.custom-max-CCU-census {
+    background-color: #fb3a1e;
+}
+
+.CCU-text {
+    color: #fb3a1e;
+}
+
+.COVID-text {
+    color: #f8d166;
+}
+
+
+.dual-pos-text {
+    color: #f98237;
+}
+
+.dual-neg-text {
+    color: #35385d;
+}
+
+.total-text {
+    color: #35385d;
+}
+
+
+.am-triage {
+    background-color: #f2dd69;
+}
+
+.pm-triage {
+    background-color: #66e;
+
+}
+
+.rounder-text, .rounder-supplemental-text {
+    margin-bottom: -10;
+}
+
+.role-paragraph {
+    padding-left: 20;
+}
+
+
+#id_count_to_distribute {
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.form-row > .form-group {
+    margin-bottom: 0
+}
+
+.patient-card {
+    background-color: #e0ecfb;
+    border: none;
+    width:100px;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+
+.patient-card-column {
+    width: 12%;
+}
+
+.bounceback-dropdown > label {
+    margin-bottom: 0;
+    font-size: .7em;
+    font-weight: light;
+}
+
+.card-header {
+    padding-top: .25em;
+    padding-bottom: .25em;
+    background-color: #407ee0;
+    color: white;
+    font-weight: 600;
+    font-size: larger;
+}
+
+
+.bounceback-dropdown > div > .form-control {
+    height: 1.75em;
+    padding: 0;
+}
+
+#id_starting_census_table {
+    text-align: center;
+}
+
+.centered-table {
+    margin: auto;
+}
+
+.next-up-link, .shift-up-link {
+    color: green;
+}
+
+.delete-link {
+    color: red;
+}
+
+.table-cell-button {
+    font-size: 1.5em;
+    opacity: .05;
+}
+
+.table-cell-button:hover {
+    opacity: .4;
+}
+
+.table-cell-button .next-up-link:hover, .table-cell-button .shift-up-link:hover, .table-cell-button.next-up-link:hover {
+    color: green;
+}
+
+#id_rounder_row #id_provider_cell {
+    font-size: 1.5em;
+    font-width: 200;
+    color: #666363;
+}
+
+.table-cell-button .delete-link {
+    color: red;
+}
+
+.subject-field {
+    width: 100%;
+}
+
+div ~ #id_email_patient_distribution {
+    text-align: center;
+}
+
