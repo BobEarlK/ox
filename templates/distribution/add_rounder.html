@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    Add Rounder - {{ date|date:"n/j/y" }}
+{% endblock %}
+
+{% block body_block %}
+    <div class="col-10 container jumbotron text-align-center">
+        <div class="row mx-auto">
+            <div class="col-5 border rounded border-white mx-auto">
+                <h2 class="display-5 text-center mb-5">Add New Rounder</h2>
+                {% crispy add_new_rounder_form %}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

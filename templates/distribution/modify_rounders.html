@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    Modify Rounders - {{ date|date:"n/j/y" }}
+{% endblock %}
+
+{% block body_block %}
+    <div class="col-10 container jumbotron text-align-center">
+        <div class="row mx-auto">
+            <div class="col-5 border rounded border-white mx-auto  p-2">
+                <h2 class="display-5 text-center mb-5">Modify Rounders</h2>
+                            <div  id="id_current_rounders_table">
+
+
+                    {% for line_item in distribution.return_ordered_rounder_line_items %}
+                        <div class="row p-2" id="id_rounder_row">
+                            <div id="id_next_up_cell" class="table-cell-button col-1">
+                                <a class="next-up-link"
+                                   href="{% url 'distribution:make_next_up' date_str=date|date:'m-d-y' line_item_id=line_item.id %}">
+                                    &#8593;</a></div>
+
+
+                            <div id="id_shift_up_cell" class="table-cell-button col-1">
+                                <a class="shift-up-link"
+                                   href="{% url 'distribution:shift_up_in_batting_order' date_str=date|date:'m-d-y' line_item_id=line_item.id %}">
+                                    &#8963;</a></div>
+                            <div class="col-8" id="id_provider_cell">{{ line_item.provider.display_name }} </div>
+                            <div id="id_delete_cell" class="table-cell-button col-1">
+                                <a class="delete-link"
+                                   href="{% url 'distribution:delete_rounder' date_str=date|date:'m-d-y' line_item_id=line_item.id %}">
+                                   &#10008;</a></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-5  mx-auto">
+                <div class="border rounded border-white mb-5 p-2">
+                    <h2 class="display-5 text-center mb-5">Add Rounder</h2>
+                    {% crispy add_rounder_from_existing_form %}
+
+                    <p>Don't see the provider you want to add in the list?
+
+                        <a id="id_add_new_rounder_link"
+                           href="{% url 'distribution:add_rounder' date_str=date|date:'m-d-y' %}">
+
+                            Add a new rounder</a>
+                        <br> <br>Please note: only use this option if the provider is not
+                        present in the above
+                        dropdown list.</p>
+                </div>
+                <div class="border rounded border-white mt-5 p-2 text-center">
+                    <h2 class="display-5 text-center mb-5">Reset Rounders</h2>
+                    <p>Return the rounders to those listed in QGenda</p>
+                    <a id="id_revert_to_QGenda_data" class="btn btn-outline-danger btn-sm m-3"
+                       href="{% url 'distribution:reset_to_qgenda' date_str=date|date:'m-d-y' %}">
+
+                        Reset Rounders to QGenda Data</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+                    <a id="id_return_to_main_page_link" class="btn btn-primary mx-auto mt-3"
+                       href="{% url 'distribution:current_rounders' date_str=date|date:'m-d-y' %}">
+
+                        Return to Main Page</a>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

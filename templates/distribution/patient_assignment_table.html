@@ -1,0 +1,61 @@
+
+
+    <div class="col-11">
+        <table class="table table-sm text-center">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col-1">Provider</th>
+                <th scope="col-2">Starting Census <br>Total - (CCU) &ltCOVID&gt</th>
+                <th scope="col-2">Bouncebacks</th>
+                <th scope="col-2">CCU/COVID</th>
+                <th scope="col-2">CCU</th>
+                <th scope="col-2">COVID</th>
+                <th scope="col-2">neg/neg</th>
+                <th scope="col-2">Final Census <br>Total - (CCU) &ltCOVID&gt</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if unassigned_patient_dict.unassigned_total_census > 0 %}
+            <tr id="id_unassigned_patient_row" class="unassigned-patient-row">
+                <td>Unassigned Patients</td>
+                <td></td>
+                <td id="id_unassigned_bounceback_patients" class="text-success unassigned-patients bounceback-patients">
+                    {% for patient in unassigned_patient_dict.bounceback_pts %}
+                        {{ patient.number_designation }}  {% endfor %}</td>
+                <td id="id_unassigned_dual_pos_patients"class="text-warning unassigned-patients dual-pos-patients">{% for patient in unassigned_patient_dict.dual_pos_pts %}
+                    {{ patient.number_designation }}  {% endfor %}</td>
+                <td id="id_unassigned_ccu_pos_patients" class="text-danger unassigned-patients ccu-pos-patients">{% for patient in unassigned_patient_dict.ccu_pos_pts %}
+                    {{ patient.number_designation }}  {% endfor %}</td>
+                <td id="id_unassigned_covid_pos_patients" class="text-info unassigned-patients covid-pos-patients">{% for patient in unassigned_patient_dict.covid_pos_pts %}
+                    {{ patient.number_designation }}  {% endfor %}</td>
+                <td id="id_unassigned_dual_neg_patients" class="unassigned-patients dual-neg-patients">{% for patient in unassigned_patient_dict.dual_neg_pts %}
+                    {{ patient.number_designation }}  {% endfor %}</td>
+                <td>{{ unassigned_patient_dict.unassigned_total_census }} - ({{ unassigned_patient_dict.unassigned_CCU_census }})
+                    &lt{{ unassigned_patient_dict.unassigned_COVID_census }}&gt
+                </td>
+            </tr>
+            {% endif %}
+            {% for line_item, patient_dict in patient_assignment_dict.items %}
+                <tr>
+                    <td>{{ line_item.provider.display_name }}</td>
+                    <td>{{ line_item.startingcensus.total_census }} - ({{ line_item.startingcensus.CCU_census }})
+                        &lt{{ line_item.startingcensus.COVID_census }}&gt
+                    </td>
+                    <td class="text-success">{% for patient in patient_dict.bounceback_pts %}
+                        {{ patient.number_designation }}  {% endfor %}</td>
+                    <td class="text-warning">{% for patient in patient_dict.dual_pos_pts %}
+                        {{ patient.number_designation }}  {% endfor %}</td>
+                    <td class="text-danger">{% for patient in patient_dict.ccu_pos_pts %}
+                        {{ patient.number_designation }}  {% endfor %}</td>
+                    <td class="text-info">{% for patient in patient_dict.covid_pos_pts %}
+                        {{ patient.number_designation }}  {% endfor %}</td>
+                    <td>{% for patient in patient_dict.dual_neg_pts %}
+                        {{ patient.number_designation }}  {% endfor %}</td>
+                    <td>{{ line_item.assignedcensus.total_census }} - ({{ line_item.assignedcensus.CCU_census }})
+                        &lt{{ line_item.assignedcensus.COVID_census }}&gt
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>

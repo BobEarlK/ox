@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    Current Rounders - {{ date|date:"n/j/y" }}
+{% endblock %}
+
+{% block body_block %}
+    <div class="col-8 container jumbotron text-align-center">
+        <div class="row display-5 text-center mb-4">
+            <h2 class=" col-5 mx-auto">Rounders</h2>
+            <h2 class=" col-7 mx-auto">Enter starting census</h2>
+        </div>
+
+
+        <form method="post" id="id_set_rounders_formset" action="">
+
+
+            {% csrf_token %}
+            {{ starting_census_formset.management_form|crispy }}
+            <tr>
+                {% for form in starting_census_formset %}
+                    {% crispy form %}
+                {% endfor %}
+            </tr>
+            <div class="row my-5 text-center">
+                <div class="col-5 mx-auto">
+                    <a href="{% url 'distribution:modify_rounders' date_str=date|date:'m-d-y' %}"
+                                              class=""
+                                              id="id_modify_rounders_link">Modify Rounders</a>
+
+                </div>
+                <div class="col-7 mx-auto"><input type="submit" name="submit_censuses_button" value="Submit"
+                                                  class="btn btn-primary btn-lg"
+                                                  id="id_submit_censuses_button"></div>
+
+
+            </div>
+
+
+        </form>
+    </div>
+
+{% endblock %}

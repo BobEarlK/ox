@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    Patient Characteristics - {{ date|date:"n/j/y" }}
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="row display-5 text-center mb-3">
+        <h1 class="mx-auto">Enter Patient Characteristics</h1>
+    </div>
+    <div class="row mx-auto">
+    <form method="post" id="id_patient_characteristics_formset"
+          action="{% url 'distribution:patient_characteristics' date_str=date|date:'m-d-y' %}">
+        <div class="row ml-3">
+
+            {% csrf_token %}
+            {{ patient_characteristics_formset.management_form|crispy }}
+            {% for form in patient_characteristics_formset %}
+                <div class="patient-card-column">
+                    <div class="card patient-card mx-1">
+                        <div class="card-header text-center">{{ form.instance.number_designation }}</div>
+                        <div class="card-body px-2 py-1">
+                            {% crispy form %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+        <div class="text-center">
+            <input type="submit" name="submit_patient_forms" value="Submit" class="btn btn-primary btn-lg mt-3"
+                   id="id_submit_patient_forms">
+        </div>
+    </form>
+    </div>
+{% endblock %}

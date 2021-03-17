@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    Update {{ provider_update_form.instance.qgenda_name }}
+{% endblock %}
+
+
+
+{% block body_block %}
+    <div class="col-8 container jumbotron text-align-center">
+
+        <h2 class="display-5 text-center">Update provider with QGenda
+            name {{ provider_update_form.instance.qgenda_name }}</h2>
+
+
+        <div class="row justify-content-between">
+            <div class="col-6">
+                {% crispy provider_update_form %}
+            </div>
+            <div class="col-4 d-flex flex-column my-auto">
+                <a id='id_set_max_censuses_to_teaching'
+                   href="{% url 'distribution:set_max_censuses' census_track='teaching' provider_qgenda_name=provider_update_form.instance.qgenda_name %}"
+                   type="button" class="btn btn-outline-secondary btn-block">Set to teaching attending</a>
+                <a id='id_set_max_censuses_to_orienting'
+                   href="{% url 'distribution:set_max_censuses' census_track='orienting' provider_qgenda_name=provider_update_form.instance.qgenda_name %}"
+                   type="button" class="btn btn-outline-secondary btn-block">Set to orienting attending</a>
+                <a id='id_set_max_censuses_to_COVID_free'
+                   href="{% url 'distribution:set_max_censuses' census_track='COVID-free' provider_qgenda_name=provider_update_form.instance.qgenda_name %}"
+                   type="button" class="btn btn-outline-secondary btn-block">Set to COVID-free</a>
+                <a id='id_reset_max_censuses_to_default'
+                   href="{% url 'distribution:set_max_censuses' census_track='default' provider_qgenda_name=provider_update_form.instance.qgenda_name %}"
+                   type="button" class="btn btn-outline-primary btn-block">Reset limits to default</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

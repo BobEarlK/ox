@@ -235,7 +235,7 @@ def compose_patient_assignments_email_view(request, date_str):
 def view_patient_assignments_view(request, date_str):
     date = timezone.datetime.strptime(date_str, '%m-%d-%y').date()
     context = assemble_patient_assignment_context(date=date)
-    return render(request, 'distribution/view_patient_assignments.html', context)
+    return render(request, "distribution/view_patient_assignments.html", context)
 
 # def send_distribution(request, date_str):
 #     date = timezone.datetime.strptime(date_str, '%m-%d-%y').date()

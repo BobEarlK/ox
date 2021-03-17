@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid aliceblue;
+            border-collapse: collapse;
+            padding-right: 12px;
+            padding-left: 12px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            font-size: 1.1em;
+
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th {
+            vertical-align: top;
+            line-height: 0.85;
+            padding-top: 25px;
+            padding-bottom: 10px;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        td {
+            font-weight: 400;
+        }
+
+        thead {
+            background-color: aliceblue;
+        }
+
+        #id_assigned_patient_row {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .CCU-text {
+            color: #fb3a1e;
+        }
+
+        .COVID-text {
+            color: #f8d166;
+        }
+
+
+        .dual-pos-text {
+            color: #f98237;
+        }
+
+        .dual-neg-text {
+            color: #35385d;
+        }
+
+        .total-text {
+            color: #35385d;
+        }
+
+
+        .unassigned-patient-text {
+            font-weight: bold;
+        }
+
+        .helper-text {
+            font-size: .5em;
+            font-weight: 300;
+        }
+
+        .not-seen-text {
+            color: #043ab9;
+            font-weight: 600;
+        }
+
+        .starting-numbers, .ending-numbers, .not-seen-text, .bounceback-text, .dual-pos-text,
+        .CCU-text, .COVID-text, .dual-neg-text, .helper-text {
+            word-spacing: 12px;
+        }
+
+        .custom-max-total-census, .custom-max-CCU-census, .custom-max-COVID-census {
+            color: white;
+            opacity: .6;
+            font-size: .7rem;
+            vertical-align: sub;
+            padding-left: 2px;
+            padding-right: 2px;
+
+            border-style: solid;
+            border-width: 0px;
+            border-radius: 3px;
+        }
+
+        .custom-max-COVID-census {
+            background-color: #f8d166;
+        }
+
+        .custom-max-total-census {
+            background-color: #35385d;
+        }
+
+        .custom-max-CCU-census {
+            background-color: #fb3a1e;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Provider</th>
+        <th>Starting Census<br>
+            <span class="helper-text">
+                <span class="total-text">Total</span>
+                <span class="CCU-text"> CCU </span>
+                <span class="COVID-text">COVID</span>
+        <th>Bounce- backs</th>
+        <th>CCU/COVID</th>
+        <th>CCU</th>
+        <th>COVID</th>
+        <th>Floor</th>
+        <th>Final Census<br>
+            <span class="helper-text">
+                <span class="total-text">Total</span>
+                <span class="CCU-text"> CCU </span>
+                <span class="COVID-text">COVID</span>
+        </span></th>
+        <th>Not Seens</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if unassigned_patient_dict.seen_bounceback_pts or unassigned_patient_dict.seen_dual_pos_pts or unassigned_patient_dict.seen_ccu_pos_pts or unassigned_patient_dict.seen_covid_pos_pts or unassigned_patient_dict.seen_dual_neg_pts or unassigned_patient_dict.not_seen_pts %}
+        <tr id="id_unassigned_patient_row" class="unassigned-patient-text">
+            <td class="provider-text">Unassigned</td>
+            <td></td>
+            <td id="id_bounceback_patients" class="bounceback-text">
+                {% for patient in unassigned_patient_dict.seen_bounceback_pts %}
+                    {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_dual_pos_patients" class="dual-pos-text">
+                {% for patient in unassigned_patient_dict.seen_dual_pos_pts %}
+                    {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_CCU_patients" class="CCU-text">{% for patient in unassigned_patient_dict.seen_ccu_pos_pts %}
+                {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_COVID_patients" class="COVID-text">
+                {% for patient in unassigned_patient_dict.seen_covid_pos_pts %}
+                    {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_dual_neg_patients" class="dual-neg-text">
+                {% for patient in unassigned_patient_dict.seen_dual_neg_pts %}
+                    {{ patient.number_designation }}   {% endfor %}</td>
+            <td class="ending-numbers">
+                <span class="total-text"> {{ unassigned_patient_dict.unassigned_seen_total_census }} </span>
+                <span class="CCU-text"> {{ unassigned_patient_dict.unassigned_seen_CCU_census }} </span>
+                <span class="COVID-text"> {{ unassigned_patient_dict.unassigned_seen_COVID_census }} </span>
+            </td>
+            <td id="id_not_seen_patients" class="not-seen-text">
+                {% for patient in unassigned_patient_dict.not_seen_pts %}
+                    {{ patient.number_designation }}   {% endfor %}</td>
+        </tr>
+    {% endif %}
+    {% for line_item, patient_dict in patient_assignment_dict.items %}
+        <tr id="id_assigned_patient_row">
+            <td id="id_provider_name" class="provider-text">{{ line_item.provider.display_name }}
+                {% if line_item.provider.max_total_census != 17 %}
+                    <span class="custom-max-total-census">{{ line_item.provider.max_total_census }}</span> {% endif %}
+                {% if line_item.provider.max_CCU_census != 17 %}
+                    <span class="custom-max-CCU-census">{{ line_item.provider.max_CCU_census }}</span> {% endif %}
+                {% if line_item.provider.max_COVID_census != 17 %}
+                    <span class="custom-max-COVID-census">{{ line_item.provider.max_COVID_census }}</span> {% endif %}
+            </td>
+
+            <td class="starting-numbers">
+                <span class="total-text"> {{ line_item.startingcensus.total_census }} </span>
+                <span class="CCU-text"> {{ line_item.startingcensus.CCU_census }} </span>
+                <span class="COVID-text"> {{ line_item.startingcensus.COVID_census }} </span></td>
+            <td id="id_bounceback_patients" class="bounceback-text">
+                {% for patient in patient_dict.seen_bounceback_pts %}
+                    {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_dual_pos_patients" class="dual-pos-text">{% for patient in patient_dict.seen_dual_pos_pts %}
+                {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_CCU_patients" class="CCU-text">{% for patient in patient_dict.seen_ccu_pos_pts %}
+                {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_COVID_patients" class="COVID-text">{% for patient in patient_dict.seen_covid_pos_pts %}
+                {{ patient.number_designation }}   {% endfor %}</td>
+            <td id="id_dual_neg_patients" class="dual-neg-text">{% for patient in patient_dict.seen_dual_neg_pts %}
+                {{ patient.number_designation }}   {% endfor %}</td>
+            <td class="ending-numbers">
+                <span class="total-text"> {{ line_item.assignedcensus.total_census }} </span>
+                <span class="CCU-text"> {{ line_item.assignedcensus.CCU_census }} </span>
+                <span class="COVID-text"> {{ line_item.assignedcensus.COVID_census }} </span>
+            </td>
+            <td id="id_not_seen_patients" class="not-seen-text">{% for patient in patient_dict.not_seen_pts %}
+                {{ patient.number_designation }}   {% endfor %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

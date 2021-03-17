@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    Patient Count - {{ date|date:"n/j/y" }}
+{% endblock %}
+
+
+
+{% block body_block %}
+    <div class="col-6 container jumbotron text-center">
+    <h2 >Enter total number of patients to assign</h2>
+                {% crispy patient_count_form %}
+{#    <div class="row">#}
+{#        <div class="col-6">#}
+{#            {% include 'distribution/starting_census_table.html' %}#}
+{#        </div>#}
+{#        <div class="col-6">#}
+{##}
+{#        </div>#}
+{#    </div>#}
+
+    </div>
+
+{% endblock %}

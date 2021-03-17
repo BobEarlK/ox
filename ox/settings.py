@@ -27,9 +27,9 @@ if 'DJANGO_DEBUG_FALSE' in os.environ:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'ox',
             'USER': 'bobearl',
-                'PASSWORD': 'ursine',
-                'HOST': 'localhost',
-                'PORT': '5432',
+            'PASSWORD': 'ursine',
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
     }
 else:

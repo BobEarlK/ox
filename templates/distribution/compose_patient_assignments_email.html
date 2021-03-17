@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %}
+    Compose Assignment Email - {{ date|date:"n/j/y" }}
+{% endblock %}
+
+{% block body_block %}
+    {% include 'distribution/simple_assignment_table.html' %}
+    <div class="jumbotron col-5 mx-auto my-4 py-2">
+    <h2 class="text-center">Email Details</h2>
+        {% crispy email_distribution_form %}
+{#        <div class=" text-center my-4">#}
+{#            <a class="btn btn-primary btn-lg"#}
+{#               href="{% url 'distribution:send_distribution' date_str=date|date:'m-d-y' %}">Send email</a>#}
+{#        </div>#}
+    </div>
+{% endblock %}
